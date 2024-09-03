@@ -1,0 +1,1 @@
+/usr/bin/c++  -pg -g CMakeFiles/game.dir/src/Engine/Game.cpp.o CMakeFiles/game.dir/src/Engine/Graphics/Texture.cpp.o CMakeFiles/game.dir/src/Engine/Graphics/TextureManager.cpp.o CMakeFiles/game.dir/src/Engine/Scene.cpp.o CMakeFiles/game.dir/src/main.cpp.o -o game  /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2_image.so

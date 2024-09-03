@@ -1,0 +1,3 @@
+/home/cristian/Documents/Github/gea-2024-bhg/build/CMakeFiles/game.dir
+/home/cristian/Documents/Github/gea-2024-bhg/build/CMakeFiles/edit_cache.dir
+/home/cristian/Documents/Github/gea-2024-bhg/build/CMakeFiles/rebuild_cache.dir

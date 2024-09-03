@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/cristian/Documents/Github/gea-2024-bhg/build",
+  "command": "/usr/bin/c++  -I/home/cristian/Documents/Github/gea-2024-bhg/src -isystem /usr/include/SDL2  -pg -g -std=gnu++23 -o CMakeFiles/game.dir/src/Engine/Game.cpp.o -c /home/cristian/Documents/Github/gea-2024-bhg/src/Engine/Game.cpp",
+  "file": "/home/cristian/Documents/Github/gea-2024-bhg/src/Engine/Game.cpp",
+  "output": "CMakeFiles/game.dir/src/Engine/Game.cpp.o"
+},
+{
+  "directory": "/home/cristian/Documents/Github/gea-2024-bhg/build",
+  "command": "/usr/bin/c++  -I/home/cristian/Documents/Github/gea-2024-bhg/src -isystem /usr/include/SDL2  -pg -g -std=gnu++23 -o CMakeFiles/game.dir/src/Engine/Graphics/Texture.cpp.o -c /home/cristian/Documents/Github/gea-2024-bhg/src/Engine/Graphics/Texture.cpp",
+  "file": "/home/cristian/Documents/Github/gea-2024-bhg/src/Engine/Graphics/Texture.cpp",
+  "output": "CMakeFiles/game.dir/src/Engine/Graphics/Texture.cpp.o"
+},
+{
+  "directory": "/home/cristian/Documents/Github/gea-2024-bhg/build",
+  "command": "/usr/bin/c++  -I/home/cristian/Documents/Github/gea-2024-bhg/src -isystem /usr/include/SDL2  -pg -g -std=gnu++23 -o CMakeFiles/game.dir/src/Engine/Graphics/TextureManager.cpp.o -c /home/cristian/Documents/Github/gea-2024-bhg/src/Engine/Graphics/TextureManager.cpp",
+  "file": "/home/cristian/Documents/Github/gea-2024-bhg/src/Engine/Graphics/TextureManager.cpp",
+  "output": "CMakeFiles/game.dir/src/Engine/Graphics/TextureManager.cpp.o"
+},
+{
+  "directory": "/home/cristian/Documents/Github/gea-2024-bhg/build",
+  "command": "/usr/bin/c++  -I/home/cristian/Documents/Github/gea-2024-bhg/src -isystem /usr/include/SDL2  -pg -g -std=gnu++23 -o CMakeFiles/game.dir/src/Engine/Scene.cpp.o -c /home/cristian/Documents/Github/gea-2024-bhg/src/Engine/Scene.cpp",
+  "file": "/home/cristian/Documents/Github/gea-2024-bhg/src/Engine/Scene.cpp",
+  "output": "CMakeFiles/game.dir/src/Engine/Scene.cpp.o"
+},
+{
+  "directory": "/home/cristian/Documents/Github/gea-2024-bhg/build",
+  "command": "/usr/bin/c++  -I/home/cristian/Documents/Github/gea-2024-bhg/src -isystem /usr/include/SDL2  -pg -g -std=gnu++23 -o CMakeFiles/game.dir/src/main.cpp.o -c /home/cristian/Documents/Github/gea-2024-bhg/src/main.cpp",
+  "file": "/home/cristian/Documents/Github/gea-2024-bhg/src/main.cpp",
+  "output": "CMakeFiles/game.dir/src/main.cpp.o"
+}
+]
