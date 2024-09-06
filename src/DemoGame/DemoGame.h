@@ -14,6 +14,10 @@ struct PlayerComponent {
 
 };
 
+struct EnemyComponent {
+
+};
+
 class SquareSpawnSetupSystem : public SetupSystem {
   void run() {
     Entity* square = scene->createEntity("SQUARE", 10, 10); 
@@ -21,6 +25,15 @@ class SquareSpawnSetupSystem : public SetupSystem {
     square->addComponent<VelocityComponent>(300);
     square->addComponent<TextureComponent>("/home/cristian/Documents/gea-2024-bhg/assets/Sprites/alien.png");
     square->addComponent<SpriteComponent>("/home/cristian/Documents/gea-2024-bhg/assets/Sprites/alien.png", 16, 24, 3, 8, 2000);
+  }
+};
+
+class EnemySpawnSetupSystem : public SetupSystem {
+  void run() {
+    Entity* square = scene->createEntity("ENEMY", 200, 200); 
+    square->addComponent<EnemyComponent>();
+    square->addComponent<TextureComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/obstacle.png");
+    square->addComponent<SpriteComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/obstacle.png", 24, 24, 3, 8, 2000);
   }
 };
 
@@ -87,9 +100,10 @@ public:
   { }
 
   void setup() {
-    // std::print("HELLO WORLD\n");  
     sampleScene = new Scene("SAMPLE SCENE", r, renderer);
     addSetupSystem<SquareSpawnSetupSystem>(sampleScene);
+    addSetupSystem<EnemySpawnSetupSystem>(sampleScene);
+    
     addSetupSystem<BackgroundSetupSystem>(sampleScene);
     addSetupSystem<TextureSetupSystem>(sampleScene);
     addEventSystem<MovementInputSystem>(sampleScene);
