@@ -1,7 +1,6 @@
 #include "Texture.h"
 #include <SDL_render.h>
 #include <SDL_surface.h>
-#include <iostream>
 
 
 Texture::Texture()
@@ -14,21 +13,17 @@ Texture::~Texture() {
 
 void Texture::load(const std::string& path, SDL_Renderer* renderer) {
   free();
-  std::cout << "Llegamos " << std::endl;
   SDL_Surface* loadedSurface = IMG_Load(path.c_str());
 
-  std::cout << "Llegamos 2" << std::endl;
   texture = SDL_CreateTextureFromSurface(renderer, loadedSurface);
   if (!texture) {
     printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
   }
 
-  std::cout << "texture: " << texture << std::endl;
-
   width = loadedSurface->w;
   height = loadedSurface->h;
 
-  SDL_FreeSurface(loadedSurface);
+  /* SDL_FreeSurface(loadedSurface); */
 }
 
 void Texture::free() {

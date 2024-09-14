@@ -1,8 +1,5 @@
 #include "TextureManager.h"
-#include <iostream>
-#include <unistd.h>  // Para Linux/macOS
-//#include <direct.h>  // Para Windows
-#include <limits.h>   // Para usar PATH_MAX
+// #include <print>
 
 std::map<std::string, Texture*> TextureManager::textures;
 
@@ -31,22 +28,12 @@ void TextureManager::UnloadTexture(const std::string& filename) {
 }
 
 Texture* TextureManager::GetTexture(const std::string& filename) {
-  // Obtén el directorio de trabajo actual
-  char cwd[PATH_MAX];
-  if (getcwd(cwd, sizeof(cwd)) != nullptr) {
-    std::cout << "Directorio de trabajo actual: " << cwd << std::endl;
-  } else {
-    std::cerr << "Error obteniendo el directorio de trabajo actual" << std::endl;
-  }
-
-  // Buscar la textura en el mapa
   auto it = textures.find(filename);
+
   if (it != textures.end()) {
-    std::cout << "Textura encontrada en el mapa: " << filename << std::endl;
     return it->second;
   }
 
-  std::cerr << "Textura no encontrada: " << filename << std::endl;
   return nullptr;
 }
 

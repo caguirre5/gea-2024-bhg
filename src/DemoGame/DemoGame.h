@@ -1,3 +1,4 @@
+#include "DemoGame/Tilemap.h"
 #include "Engine/Game.h"
 #include "Engine/Scene.h"
 #include "Engine/Entity.h"
@@ -9,31 +10,24 @@
 #include <entt/entt.hpp>
 #include "Sprites.h"
 #include "Backgrounds.h"
-
-struct PlayerComponent {
-
-};
-
-struct EnemyComponent {
-
-};
+#include "Player.h"
+#include "Colliders.h"
 
 class SquareSpawnSetupSystem : public SetupSystem {
   void run() {
     Entity* square = scene->createEntity("SQUARE", 10, 10); 
     square->addComponent<PlayerComponent>();
     square->addComponent<VelocityComponent>(300);
-    square->addComponent<TextureComponent>("/home/cristian/Documents/gea-2024-bhg/assets/Sprites/alien.png");
-    square->addComponent<SpriteComponent>("/home/cristian/Documents/gea-2024-bhg/assets/Sprites/alien.png", 16, 24, 3, 8, 2000);
-  }
-};
+    square->addComponent<TextureComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/alien.png");
+    square->addComponent<SpriteComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/alien.png", 16, 24, 3, 8, 2000);
+    square->addComponent<BoxColliderComponent>(SDL_Rect{0, 0, 80, 80}, SDL_Color{255, 0, 0});
 
-class EnemySpawnSetupSystem : public SetupSystem {
-  void run() {
-    Entity* square = scene->createEntity("ENEMY", 200, 200); 
-    square->addComponent<EnemyComponent>();
-    square->addComponent<TextureComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/obstacle.png");
-    square->addComponent<SpriteComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/obstacle.png", 24, 24, 3, 8, 2000);
+    Entity* face = scene->createEntity("face", 200, 200); 
+    face->addComponent<PowerUpComponent>();
+    face->addComponent<TextureComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/obstacle.png");
+    face->addComponent<SpriteComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/obstacle.png", 24, 24, 3, 8, 2000);
+    face->addComponent<BoxColliderComponent>(SDL_Rect{0, 0, 80, 80}, SDL_Color{0, 255, 0});
+
   }
 };
 
@@ -100,18 +94,30 @@ public:
   { }
 
   void setup() {
+    // std::print("HELLO WORLD\n");  
     sampleScene = new Scene("SAMPLE SCENE", r, renderer);
     addSetupSystem<SquareSpawnSetupSystem>(sampleScene);
-    addSetupSystem<EnemySpawnSetupSystem>(sampleScene);
-    
     addSetupSystem<BackgroundSetupSystem>(sampleScene);
+    addSetupSystem<TilemapSetupSystem>(sampleScene);
+    addSetupSystem<AdvancedAutoTilingSetupSystem>(sampleScene);
     addSetupSystem<TextureSetupSystem>(sampleScene);
+    addSetupSystem<TilemapEntitySetupSystem>(sampleScene);
     addEventSystem<MovementInputSystem>(sampleScene);
+
+    addUpdateSystem<ColliderResetSystem>(sampleScene);
     addUpdateSystem<SpriteMovementSystem>(sampleScene);
+
+    addUpdateSystem<PlayerPowerUpCollisionDetectionSystem>(sampleScene);
+    addUpdateSystem<PlayerPowerUpCollisionSystem>(sampleScene);
+
+    addUpdateSystem<PlayerTileCollisionDetectionSystem>(sampleScene);
+    addUpdateSystem<PlayerWallCollisionSystem>(sampleScene);
+
     addUpdateSystem<MovementSystem>(sampleScene);
     addUpdateSystem<SpriteAnimationSystem>(sampleScene);
-
     addRenderSystem<SpriteRenderSystem>(sampleScene);
+    addRenderSystem<TilemapRenderSystem>(sampleScene);
+    addRenderSystem<ColliderRenderSystem>(sampleScene);
 
     setScene(sampleScene);
   }

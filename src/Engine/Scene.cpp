@@ -1,6 +1,6 @@
 #include "Scene.h"
 // #include <print>
-#include <iostream>
+
 #include "Entity.h"
 #include "Components.h"
 #include "Systems.h"
@@ -9,14 +9,11 @@ Scene::Scene(const std::string& n, entt::registry& r, SDL_Renderer* renderer)
   : name(n), r(r), renderer(renderer)
 {
   // std::print("Scene Initialized: {}\n", n);
-  std::cout << "Scene Initialized\n" << std::endl;
-
 }
 
 Scene::~Scene() {
   setupSystems.clear();
   // std::print("Scene Destroyed: {}\n", name);
-  std::cout << "Scene Destroyed\n" << std::endl;
 }
 
 Entity* Scene::createEntity(const std::string& n) {

@@ -95,7 +95,6 @@ class SpriteRenderSystem : public RenderSystem {
       auto spr = view.get<SpriteComponent>(e);
 
       Texture* texture = TextureManager::GetTexture(spr.filename);
-
       SDL_Rect clip = {
         spr.xIndex * spr.width,
         spr.yIndex * spr.height,
