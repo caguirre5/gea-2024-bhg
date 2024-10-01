@@ -38,12 +38,12 @@ public:
       0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
       0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
       0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
-      0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 1, 0, 0, 0, 0,
-      0, 0, 0, 1, 0, 1, 0, 0, 1, 0,
+      0, 0, 0, 0, 0, 1, 0, 0, 0, 1,
+      0, 0, 0, 0, 0, 1, 0, 1, 0, 0,
+      0, 0, 0, 1, 0, 1, 0, 1, 1, 0,
       0, 0, 0, 1, 1, 1, 0, 0, 1, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
+      0, 0, 0, 1, 1, 1, 0, 0, 1, 0
     };
 
     std::string filename = "/home/cristian/Documents/gea-2024-bhg/assets/Tilesets/tilemap.png";
@@ -149,6 +149,8 @@ public:
 class TilemapRenderSystem : public RenderSystem {
   void run(SDL_Renderer* renderer) {
     auto view = scene->r.view<TilemapComponent, TextureComponent>();
+    const auto& cameraPosition = scene->mainCamera->get<PositionComponent>();
+    const auto& cameraComponent = scene->mainCamera->get<CameraComponent>();
     for (auto e : view) {
       auto tmap = view.get<TilemapComponent>(e);
       auto tex = view.get<TextureComponent>(e);
@@ -176,10 +178,10 @@ class TilemapRenderSystem : public RenderSystem {
 
             texture->render(
               scene->renderer,
-              x * tileSize,
-              y * tileSize,
-              tileSize,
-              tileSize,
+              x * tileSize - cameraPosition.x,
+              y * tileSize - cameraPosition.y,
+              tileSize * cameraComponent.zoom,
+              tileSize * cameraComponent.zoom,
               &clip
             );
           }

@@ -31,6 +31,42 @@ class SquareSpawnSetupSystem : public SetupSystem {
   }
 };
 
+class CameraSetupSystem : public SetupSystem {
+  void run() {
+    int width = 1024;
+    int height = 768;
+    scene->mainCamera = scene->createEntity("CAMERA", 0, 0); 
+    scene->mainCamera->addComponent<CameraComponent>(1, width, height, width * 10, height * 10);
+  }
+};
+
+class CameraFollowUpdateSystem : public UpdateSystem {
+  void run(float dT) {
+    auto view = scene->r.view<PositionComponent, PlayerComponent, SpriteComponent>();
+    auto& cameraPosition = scene->mainCamera->get<PositionComponent>();
+    auto cameraComponent = scene->mainCamera->get<CameraComponent>();
+
+    for (auto e : view) {
+      auto playerPosition = view.get<PositionComponent>(e);
+      auto playerSprite = view.get<SpriteComponent>(e);
+
+      int spriteWidth = playerSprite.width * playerSprite.scale * cameraComponent.zoom;
+      int spriteHeight = playerSprite.height * playerSprite.scale * cameraComponent.zoom;
+
+      int px = playerPosition.x - cameraComponent.vw / 2 + spriteWidth / 2;
+      int py = playerPosition.y - cameraComponent.vh / 2 + spriteHeight / 2;
+
+      if (px > 0 && px < cameraComponent.ww - cameraComponent.vw) {
+        cameraPosition.x = px;
+      }
+
+      if (py > 0 && py < cameraComponent.wh - cameraComponent.vh) {
+        cameraPosition.y = py;
+      }
+    }
+  }
+};
+
 class MovementSystem : public UpdateSystem {
   void run(float dT) {
     auto view = scene->r.view<PositionComponent, VelocityComponent>();
@@ -96,6 +132,8 @@ public:
   void setup() {
     // std::print("HELLO WORLD\n");  
     sampleScene = new Scene("SAMPLE SCENE", r, renderer);
+
+    addSetupSystem<CameraSetupSystem>(sampleScene);
     addSetupSystem<SquareSpawnSetupSystem>(sampleScene);
     addSetupSystem<BackgroundSetupSystem>(sampleScene);
     addSetupSystem<TilemapSetupSystem>(sampleScene);
@@ -103,6 +141,7 @@ public:
     addSetupSystem<TextureSetupSystem>(sampleScene);
     addSetupSystem<TilemapEntitySetupSystem>(sampleScene);
     addEventSystem<MovementInputSystem>(sampleScene);
+    addUpdateSystem<CameraFollowUpdateSystem>(sampleScene);
 
     addUpdateSystem<ColliderResetSystem>(sampleScene);
     addUpdateSystem<SpriteMovementSystem>(sampleScene);
