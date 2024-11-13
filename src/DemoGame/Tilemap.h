@@ -34,21 +34,22 @@ class TilemapSetupSystem : public SetupSystem {
 public:
   void run() override {
     std::vector<int> initialMap = {
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
-      0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
-      0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
-      0, 0, 0, 0, 0, 1, 0, 0, 0, 1,
-      0, 0, 0, 0, 0, 1, 0, 1, 0, 0,
-      0, 0, 0, 1, 0, 1, 0, 1, 1, 0,
-      0, 0, 0, 1, 1, 1, 0, 0, 1, 0,
-      0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
-      0, 0, 0, 1, 1, 1, 0, 0, 1, 0
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+      1, 0, 0, 0, 1, 0, 0, 1, 0, 1,
+      1, 0, 1, 0, 1, 0, 1, 1, 0, 1,
+      1, 0, 1, 0, 0, 0, 0, 1, 0, 1,
+      1, 0, 1, 1, 1, 1, 0, 1, 0, 1,
+      1, 0, 0, 0, 0, 1, 0, 1, 0, 1,
+      1, 1, 1, 1, 0, 1, 0, 1, 0, 1,
+      1, 0, 0, 0, 0, 1, 0, 0, 0, 1,
+      1, 0, 1, 1, 0, 0, 0, 1, 0, 1,
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1
     };
+
 
     std::string filename = "/home/cristian/Documents/gea-2024-bhg/assets/Tilesets/tilemap.png";
     int tileSize = 16;
-    int tileScale = 4;
+    int tileScale = 6;
     std::vector<Tile> tiles;
     for (int i = 0; i < initialMap.size(); i++) {
       TileType type = TileType::NONE;

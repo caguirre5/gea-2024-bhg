@@ -1,3 +1,4 @@
+#pragma once
 #include "DemoGame/Tilemap.h"
 #include "Engine/Game.h"
 #include "Engine/Scene.h"
@@ -12,21 +13,22 @@
 #include "Backgrounds.h"
 #include "Player.h"
 #include "Colliders.h"
+#include "Sound.h"
 
 class SquareSpawnSetupSystem : public SetupSystem {
   void run() {
-    Entity* square = scene->createEntity("SQUARE", 10, 10); 
+    Entity* square = scene->createEntity("SQUARE", 100, 100); 
     square->addComponent<PlayerComponent>();
     square->addComponent<VelocityComponent>(300);
     square->addComponent<TextureComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/alien.png");
     square->addComponent<SpriteComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/alien.png", 16, 24, 3, 8, 2000);
-    square->addComponent<BoxColliderComponent>(SDL_Rect{0, 0, 80, 80}, SDL_Color{255, 0, 0});
+    square->addComponent<BoxColliderComponent>(SDL_Rect{0, 0, 50, 80}, SDL_Color{0, 0, 0});
 
-    Entity* face = scene->createEntity("face", 200, 200); 
+    Entity* face = scene->createEntity("face", 775, 100); 
     face->addComponent<PowerUpComponent>();
     face->addComponent<TextureComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/obstacle.png");
     face->addComponent<SpriteComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/obstacle.png", 24, 24, 3, 8, 2000);
-    face->addComponent<BoxColliderComponent>(SDL_Rect{0, 0, 80, 80}, SDL_Color{0, 255, 0});
+    face->addComponent<BoxColliderComponent>(SDL_Rect{0, 0, 80, 80}, SDL_Color{0, 0, 0});
 
   }
 };
@@ -126,10 +128,10 @@ public:
 
 public:
   DemoGame()
-  : Game("SAMPLE", 1024, 768)
+  : Game("SAMPLE", 960, 960)
   { }
 
-  void setup() {
+  void setup() override {
     // std::print("HELLO WORLD\n");  
     sampleScene = new Scene("SAMPLE SCENE", r, renderer);
 
@@ -141,7 +143,13 @@ public:
     addSetupSystem<TextureSetupSystem>(sampleScene);
     addSetupSystem<TilemapEntitySetupSystem>(sampleScene);
     addEventSystem<MovementInputSystem>(sampleScene);
-    addUpdateSystem<CameraFollowUpdateSystem>(sampleScene);
+    //addUpdateSystem<CameraFollowUpdateSystem>(sampleScene);
+
+    addSetupSystem<BackgroundMusicSetupSystem>(sampleScene);
+    addSetupSystem<FxMusicSetupSystem>(sampleScene);
+    addSetupSystem<FxMusicSetupSystem2>(sampleScene);
+    addSetupSystem<SoundSetupSystem>(sampleScene);
+    addSetupSystem<BackgroundMusicPlaySetupSystem>(sampleScene);
 
     addUpdateSystem<ColliderResetSystem>(sampleScene);
     addUpdateSystem<SpriteMovementSystem>(sampleScene);

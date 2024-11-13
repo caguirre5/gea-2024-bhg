@@ -6,6 +6,7 @@
 #include "Engine/Systems.h"
 /* #include "Tilemap.h" */
 #include "Player.h"
+#include "Sound.h"
 
 enum class CollisionType {
   NONE,
@@ -20,6 +21,8 @@ struct BoxColliderComponent {
   CollisionType collisionType = CollisionType::NONE;
   bool isTriggered = false;
 };
+
+
 
 
 class ColliderResetSystem : public UpdateSystem {
@@ -52,8 +55,6 @@ public:
         collider.rect.h * cameraComponent.zoom
       };
 
-      SDL_SetRenderDrawColor(renderer, collider.color.r, collider.color.g, collider.color.b, collider.color.a);
-      SDL_RenderDrawRect(renderer, &renderRect);
     }
 
   }
@@ -104,11 +105,26 @@ public:
       auto& collider = playerView.get<BoxColliderComponent>(player);
 
       if (collider.collisionType == CollisionType::TRIGGER && !collider.isTriggered) {
-        std::cout << "player collider with power up" << std::endl;
+        std::cout << "Has ganado!" << std::endl;
+        MonsterSound();
         collider.isTriggered = true;
       }
     }
   }
+
+  private:
+    void MonsterSound() {
+      auto view = scene->r.view<SoundComponent>();
+      for (auto entity : view) {
+        auto& soundComponent = view.get<SoundComponent>(entity);
+        if (soundComponent.type == SoundType::EFFECT && soundComponent.filename == "assets/Sounds/monster.wav") {
+          if (soundComponent.channel) {
+            soundComponent.channel->stop();
+          }
+          game->soundManager->playSound(soundComponent.sound, nullptr, false, &soundComponent.channel);
+        }
+      }
+    }
 };
 
 class TilemapEntitySetupSystem : public SetupSystem {
@@ -195,11 +211,25 @@ public:
       auto& velocity = playerView.get<VelocityComponent>(player);
 
       if (collider.collisionType == CollisionType::WALL) {
+        MonsterSound();
         velocity.x = 0;
         velocity.y = 0;
       }
     }
   }
+  private:
+    void MonsterSound() {
+      auto view = scene->r.view<SoundComponent>();
+      for (auto entity : view) {
+        auto& soundComponent = view.get<SoundComponent>(entity);
+        if (soundComponent.type == SoundType::EFFECT && soundComponent.filename == "assets/Sounds/wall.wav") {
+          if (soundComponent.channel) {
+            soundComponent.channel->stop();
+          }
+          game->soundManager->playSound(soundComponent.sound, nullptr, false, &soundComponent.channel);
+        }
+      }
+    }
 };
 
 
