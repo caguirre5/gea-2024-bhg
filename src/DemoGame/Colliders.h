@@ -108,6 +108,8 @@ public:
         std::cout << "Has ganado!" << std::endl;
         MonsterSound();
         collider.isTriggered = true;
+        SDL_Delay(2000);
+        exit(0);
       }
     }
   }
