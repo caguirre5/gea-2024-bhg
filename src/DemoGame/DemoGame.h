@@ -20,14 +20,14 @@ class SquareSpawnSetupSystem : public SetupSystem {
     Entity* square = scene->createEntity("SQUARE", 100, 100); 
     square->addComponent<PlayerComponent>();
     square->addComponent<VelocityComponent>(300);
-    square->addComponent<TextureComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/alien.png");
-    square->addComponent<SpriteComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/alien.png", 16, 24, 3, 8, 2000);
+    square->addComponent<TextureComponent>("assets/Sprites/alien.png");
+    square->addComponent<SpriteComponent>("assets/Sprites/alien.png", 16, 24, 3, 8, 2000);
     square->addComponent<BoxColliderComponent>(SDL_Rect{0, 0, 50, 80}, SDL_Color{0, 0, 0});
 
     Entity* face = scene->createEntity("face", 775, 100); 
     face->addComponent<PowerUpComponent>();
-    face->addComponent<TextureComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/obstacle.png");
-    face->addComponent<SpriteComponent>("/home/cristian/Documents/Github/gea-2024-bhg/assets/Sprites/obstacle.png", 24, 24, 3, 8, 2000);
+    face->addComponent<TextureComponent>("assets/Sprites/obstacle.png");
+    face->addComponent<SpriteComponent>("assets/Sprites/obstacle.png", 24, 24, 3, 8, 2000);
     face->addComponent<BoxColliderComponent>(SDL_Rect{0, 0, 80, 80}, SDL_Color{0, 0, 0});
 
   }

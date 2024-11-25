@@ -47,7 +47,7 @@ public:
     };
 
 
-    std::string filename = "/home/cristian/Documents/gea-2024-bhg/assets/Tilesets/tilemap.png";
+    std::string filename = "assets/Tilesets/tilemap.png";
     int tileSize = 16;
     int tileScale = 6;
     std::vector<Tile> tiles;
